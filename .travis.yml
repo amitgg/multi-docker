@@ -1,0 +1,15 @@
+language: generic
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t amitgg/react-test -f ./client/Dockeflile.dev ./client
+
+script:
+  - docker run -e CI=true  amitgg/react-test npm test
+
+after_success:
+  - docker build -t amitgg/multi-client ./client
+  - docker build -t amitgg/multi-nginx ./nginx
+  - docker build -t amitgg/multi-server ./server
+  - docker build -t amitgg/multi-worker ./server
