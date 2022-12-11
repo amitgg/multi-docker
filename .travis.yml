@@ -13,3 +13,11 @@ after_success:
   - docker build -t amitgg/multi-nginx ./nginx
   - docker build -t amitgg/multi-server ./server
   - docker build -t amitgg/multi-worker ./server
+
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stding
+  # Take those images and push them to docker-hub
+  - docker push amitgg/multi-client
+  - docker push amitgg/multi-nginx
+  - docker push amitgg/multi-server
+  - docker push amitgg/multi-worker
